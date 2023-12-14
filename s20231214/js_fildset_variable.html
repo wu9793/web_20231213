@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR 表單</title>
+    <style>
+        .text-red {
+            color: red;
+        }
+
+        .text-alien {
+            text-align: center;
+        }
+
+        legend {
+            text-align: center;
+            font-size: 24px;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <fieldset class="bg-skyblue text-red">
+            <legend class="text-alien">hr報表</legend>
+            <p>
+                <label for="name">姓名&nbsp;</label>
+                <input type="text" id="name">
+                <input type="submit" value="送出">
+                <input type="submit" value="清除">
+            </p>
+
+            <p>
+                <label for="Mobile">電話&nbsp;</label>
+                <input type="text" id="Mobile">
+                <input type="submit" value="送出">
+                <input type="submit" value="清除">
+            </p>
+
+            <p>
+                生日&nbsp;&nbsp;<input type="date" value="2023-01-01" id="birthday">
+            </p>
+
+
+            <p>
+            <h4>地址</h4>
+            <textarea name="myTextarea" id="address" cols="50" rows="2"></textarea>
+            </p>
+
+            <p>
+            <h4>性別</h4>
+            <select name="" id="sex">
+                <!-- <option value="">請選擇</option> -->
+                <!-- <option value="boy">男性</option> -->
+                <!-- <option value="girl">女性</option> -->
+                <option value="">請選擇</option>
+            </select>
+            </p>
+
+            <p>
+            <h4>年齡</h4>
+            <div class="container">
+                <input type="radio" name="myradio" id="item1">
+                <label for="item1">未滿20歲</label>
+                <input type="radio" name="myradio" id="item2">
+                <label for="item2">20~29歲</label>
+                <input type="radio" name="myradio" id="item3">
+                <label for="item3">30歲以上</label>
+            </div>
+            </p>
+
+            <p>
+            <h4>通勤工具</h4>
+            <input type="checkbox" name="mycheckbox[]" value="check1">
+            <label for="">開車</label>
+            <input type="checkbox" name="mycheckbox[]" value="check2">
+            <label for="">搭公車</label>
+            <input type="checkbox" name="mycheckbox[]" value="check3">
+            <label for="">搭捷運</label>
+            </p>
+
+            <p>
+            <h4>自傳</h4>
+            <textarea name="myTextarea" id="" cols="60" rows="10"></textarea>
+            </p>
+
+            <p>
+                <input type="reset" value="清除資料">
+                <input type="submit" value="資料送出">
+            </p>
+
+        </fieldset>
+    </div>
+
+
+    <script>
+        //let obj = {
+        //    's1': 'amy',
+        //    's2': 'bob',
+        //    's3': 'cat',
+        //    'arr' : ['a1','a2','a3']
+        //};
+
+        let studentObj = {
+            'name' : 'tim',
+            'Mobile' : '0912345679',
+            'address' : '新北市',
+            'birthday' : '2023-12-14',
+            'sex' : ['boy','girl']
+        }
+
+        //const keyID = document.getElementById('keyID');
+        const name = document.getElementById('name');
+        const Mobile = document.getElementById('Mobile');
+        const address = document.getElementById('address');
+        const birthday = document.getElementById('birthday');
+        const sex = document.getElementById('sex');
+
+        //console.log('obj', obj);
+        //console.log('obj["s1"]',obj['s1']);
+        //console.log('obj.s1', obj.s1);
+        //console.log('obj.arr', obj.arr);
+        //console.log('obj tepyof', typeof(obj));
+        console.log('name', name);
+        console.log('Mobile', Mobile);
+        console.log('address', address);
+        console.log('birthday', birthday);
+
+        //keyID.innerHTML = 's1';
+        name.value = studentObj.name;
+        Mobile.value = studentObj.Mobile;
+        address.value = studentObj.address;
+        birthday.value = studentObj.birthday;
+
+        let option = document.createElement("option");
+        option.text = studentObj.sex[0];
+        option.value = studentObj.sex[0];
+        sex.appendChild(option);
+
+        let option1 = document.createElement("option");
+        option1.text = studentObj.sex[1];
+        option1.value = studentObj.sex[1];
+        sex.appendChild(option1);
+    </script>
+</body>
+
+</html>
