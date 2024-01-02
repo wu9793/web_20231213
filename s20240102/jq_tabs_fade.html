@@ -255,8 +255,11 @@
                 // 隱藏所有class為'page-container'的元素
                 pageContainer.hide();
 
-                // 顯示與'data-page'值對應的元素
-                $(getDataPage).show(2000);
+                setTimeout(function(){
+                    // 顯示與'data-page'值對應的元素
+                    $(getDataPage).fadeIn(2000);
+
+                })
             })
         });
 
