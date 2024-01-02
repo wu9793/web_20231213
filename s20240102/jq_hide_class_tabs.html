@@ -41,7 +41,7 @@
 
     <div class="container mt-3 page-container" id="page1">
         <div class="row">
-            <div class="col bg-primary">
+            <div class="col bg-secondary">
                 Page1 Lorem ipsum dolor sit amet consectetur adipisicing elit. Id deleniti provident atque perspiciatis,
                 fugiat
                 alias repellat, cupiditate aut libero cumque minus vel voluptas omnis, necessitatibus exercitationem
@@ -230,21 +230,36 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
+        // 確保整個網頁的DOM結構已經載入完畢後再執行程式碼
         $(document).ready(function () {
+            // 選擇所有class為'myBtn'的元素
             const myBtn = $('.myBtn');
+
+            // 選擇所有class為'page-container'的元素
             const pageContainer = $('.page-container');
 
+            // 隱藏所有class為'page-container'的元素
             pageContainer.hide();
 
-            myBtn.click(function(){
-                console.log('this',this);
-                let getDataPage = $(this).attr('data-page');
-                console.log('getDataPage',getDataPage);
+            // 當任何一個'myBtn'被點擊時執行以下函式
+            myBtn.click(function () {
+                // 在控制台輸出'this'的內容，指向被點擊的按鈕元素
+                console.log('this', this);
 
+                // 從被點擊的按鈕元素中取得'data-page'屬性的值
+                let getDataPage = $(this).attr('data-page');
+
+                // 在控制台輸出'data-page'的值
+                console.log('getDataPage', getDataPage);
+
+                // 隱藏所有class為'page-container'的元素
                 pageContainer.hide();
-                $(getDataPage).show();
+
+                // 顯示與'data-page'值對應的元素
+                $(getDataPage).fadeIn(2000);
             })
         });
+
     </script>
 </body>
 
