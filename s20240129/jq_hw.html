@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+
+    <div class="container mt-3">
+        <h2>陽光漫步餐館</h2>
+        <p>在陽光明媚的氛圍中漫步，我們提供輕盈的早餐選擇，讓您開啟一天輕鬆的步調。</p>
+        <div class="row mb-3">
+            <div class="col text-center">
+                <button id="sumBtn" type="button" class="btn btn-danger d-none " data-name="咖啡" data-price="100" data-img="24">
+                    合計
+                  </button>
+                <button type="button" class="myBtn btn btn-outline-dark mx-1" data-name="咖啡" data-price="90" data-img="99">
+                    咖啡
+                </button>
+                <button type="button" class="myBtn btn btn-outline-dark mx-1" data-name="茶" data-price="50" data-img="98">
+                    茶
+                </button>
+                <button type="button" class="myBtn btn btn-outline-dark mx-1" data-name="水" data-price="20" data-img="90">
+                    水
+                </button>
+                <button type="button" class="myBtn btn btn-outline-dark mx-1" data-name="汽水" data-price="40" data-img="96">
+                    汽水
+                </button>            
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col text-center">
+                <button type="button" class="myBtn btn btn-outline-dark mx-1" data-name="漢堡" data-price="80" data-img="95">
+                    漢堡
+                </button>
+                <button type="button" class="myBtn btn btn-outline-dark mx-1" data-name="三明治" data-price="80" data-img="94">
+                    三明治
+                </button>
+                <button type="button" class="myBtn btn btn-outline-dark mx-1" data-name="蛋餅" data-price="60" data-img="62">
+                    蛋餅
+                </button>
+                <button type="button" class="myBtn btn btn-outline-dark mx-1" data-name="鐵板麵" data-price="90" data-img="11">
+                    鐵板麵
+                </button>            
+            </div>
+        </div>
+        <table class="table table-bordered align-middle text-center">
+            <thead>
+                <tr>
+                    <th>產品</th>
+                    <th width="10%">單價</th>
+                    <th width="15%">數量</th>
+                    <th width="15%">小計</th>
+                    <th width="15%">OPERATE</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- <tr>
+                    <td>
+                        <h5>
+                            咖啡
+                        </h5>
+                        <p>
+                            <img src="https://picsum.photos/id/356/180/160" alt="" srcset="">
+                        </p>
+                    </td>
+                    <td>
+                        100
+                    </td>
+                    <td>
+                        <input type="number" name="" id="item1Num" class="form-control" value="1">
+                    </td>
+                    <td>
+                        <input type="number" name="" id="item1Total" class="form-control" value="100" readonly>
+                    </td>
+                    <td>
+                        <button type="button" class="cloneBtn btn btn-warning">Clone</button>
+                        <button type="button" class="delBtn btn btn-danger">Del</button>
+                    </td>
+                </tr> -->
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <div class="container mt-3">
+        <hr>
+        <div class="row">
+          <div class="col">
+            <div class="text-end">
+              合計 : NT$ <span id="mySum" class="display-4">0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        $(document).ready(function(){
+            function sumFun(){
+                let myTotal = $('.myTotal');
+                let getMyTotalCount = myTotal.length;
+                    let sum = 0;
+                    myTotal.each(function(index, value){
+                        sum =sum + Number($(value).text());
+                    });
+                    mySum.text(sum);
+            }
+            function delFun(nowThis){
+                console.log('del ok');
+                let nowTr = $(nowThis).parent().parent();
+                nowTr.remove();
+            }
+
+            function cloneFun(nowThis){
+                let nowTr = $(nowThis).parent().parent();
+                nowTr.clone(true).insertAfter(nowTr);
+            }
+
+            const myBtn = $('.myBtn');
+            const mySun = $('#mySun');
+            const sumBtn = $('#sumBtn');
+            let delBtn = $('.delBtn');
+            let cloneBtn = $('.cloneBtn');
+
+            cloneBtn.click(function(e){
+                cloneFun(this);
+            })            
+            delBtn.click(function(e){
+                delFun(this);
+            })
+
+            myBtn.click(function(e){
+                let name = $(this).attr('data-name');
+                let price = $(this).attr('data-price');
+                let imgUrl = $(this).attr('data-img');
+                let content =`
+                <tr>
+                    <td>
+                        <h5>
+                            ${name}
+                        </h5>
+                        <p>
+                            <img src="https://picsum.photos/id/${imgUrl}/180/140" alt="" srcset="">
+                        </p>
+                    </td>
+                    <td>
+                        NT$ ${price}
+                    </td>
+                    <td>
+                        <input type="number" name="" id="item1Num" class="quantity form-control" value="1">
+                    </td>
+                    <td>
+                        小計 : <span class="myTotal">${price}</span>
+                    </td>
+                    <td>
+                        <button type="button" class="cloneBtn btn btn-warning"><i class="fa-regular fa-copy"></i></button>
+                        <button type="button" class="delBtn btn btn-danger"><i class="fa-solid fa-xmark"></i></button>
+                    </td>
+                </tr>
+                `;
+                $('tbody').append(content);
+
+                addDelBtn = $('.delBtn').last();
+                addCloneBtn = $('.cloneBtn').last();
+                addQuantity = $('.quantity').last();
+
+                addDelBtn.click(function(e){
+                    delFun(this);
+                });                
+                addCloneBtn.click(function(e){
+                    cloneFun(this);
+                });
+
+                addQuantity.change(function(e){
+                    let getQuantity = Number($(this).val());
+                    let closestQuantityTr = $(this).parent().parent().parent();
+                    let findTotal = closestQuantityTr.find('.myTotal');
+                    let total = getQuantity * price;
+                    findTotal.text(total);
+
+                    sumFun();
+                })
+            });
+        });
+    </script>
+
+
+</body>
+
+</html>
