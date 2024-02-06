@@ -21,6 +21,7 @@
       <tr>
         <th width="30%" class="text-center">id</th>
         <th class="text-start">name</th>
+        <th class="text-start">溫度</th>
       </tr>
     </thead>
     <tbody>
@@ -33,7 +34,7 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <!-- pw url -->
-  <script src="../ignore/js/weather.js"></script>
+  <!-- <script src="../ignore/js/weather.js"></script> -->
 
   <!-- datatable js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js"
@@ -42,7 +43,7 @@
 
   <script>
     $(document).ready(function () {
-      let url = weatherUrl;
+      let url = 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWA-1FD49FE3-CA54-4702-A5F0-DD2724BE9BB8';
       const myOl = $('#myOl');
       const myTable = $('#myTable');
 
@@ -67,13 +68,18 @@
             let nowID = key + 1;
             let stringID = nowID.toString().padStart(2, "0");
             let nowLocationName = value.locationName;
-            // let content = `
-            //  <li>${nowLocationName}</li>
-            // `;
+            let nowLocationMaxT = value.weatherElement[4]['time'][0]['parameter']['parameterName'];
+            let nowLocationMinT = value.weatherElement[2]['time'][0]['parameter']['parameterName'];
+            let nowLocationWxName = value.weatherElement[0]['time'][0]['parameter']['parameterName'];
+            let nowLocationWxValue = value.weatherElement[0]['time'][0]['parameter']['parameterValue'].toString();
+            let imgUrl = nowLocationWxValue + '.svg';
+            console.log('nowLocationMaxT', nowLocationMaxT);
+            console.log('nowLocation', nowLocation);
             let content = `
               <tr>
                 <td class="text-center">${stringID}</td>
                 <td class="text-start">${nowLocationName}</td>
+                <td class="text-start">${nowLocationMinT} - ${nowLocationMaxT} °C ${nowLocationWxName}<img src="./img/day/${imgUrl}"></td>
               </tr>
             `;
 
