@@ -21,7 +21,9 @@
       <tr>
         <th width="30%" class="text-center">id</th>
         <th class="text-start">name</th>
-        <th class="text-start">溫度</th>
+        <th class="text-start" id="title12">desc 12</th>
+        <th class="text-start" id="title24">desc 24</th>
+        <th class="text-start" id="title36">desc 36</th>
       </tr>
     </thead>
     <tbody>
@@ -46,6 +48,9 @@
       let url = 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWA-1FD49FE3-CA54-4702-A5F0-DD2724BE9BB8';
       const myOl = $('#myOl');
       const myTable = $('#myTable');
+      const title12 = $('#title12');
+      const title24 = $('#title24');
+      const title36 = $('#title36');
 
       $.ajax({
         type: "get",
@@ -61,6 +66,12 @@
           // console.log('res.records.datasetDescription', res.records.datasetDescription);
           // console.log('nowLocation', nowLocation);
           let nowLocation = res.records.location;
+          let title12Text = res.records.location[1].weatherElement[2]['time'][0]['startime'];
+          let title24Text = res.records.location[1].weatherElement[2]['time'][1]['startime'];
+          let title36Text = res.records.location[1].weatherElement[2]['time'][2]['startime'];
+          title12.text(title12Text);
+          title24.text(title24Text);
+          title36.text(title36Text);
           $.each(nowLocation, function (key, value) {
             // console.log('key', key);
             // console.log('value', value);
@@ -68,18 +79,33 @@
             let nowID = key + 1;
             let stringID = nowID.toString().padStart(2, "0");
             let nowLocationName = value.locationName;
-            let nowLocationMaxT = value.weatherElement[4]['time'][0]['parameter']['parameterName'];
-            let nowLocationMinT = value.weatherElement[2]['time'][0]['parameter']['parameterName'];
-            let nowLocationWxName = value.weatherElement[0]['time'][0]['parameter']['parameterName'];
-            let nowLocationWxValue = value.weatherElement[0]['time'][0]['parameter']['parameterValue'].toString();
-            let imgUrl = nowLocationWxValue + '.svg';
-            console.log('nowLocationMaxT', nowLocationMaxT);
+            //12
+            let nowLocationMaxT_12 = value.weatherElement[4]['time'][0]['parameter']['parameterName'];
+            let nowLocationMinT_12 = value.weatherElement[2]['time'][0]['parameter']['parameterName'];
+            let nowLocationWxName_12 = value.weatherElement[0]['time'][0]['parameter']['parameterName'];
+            let nowLocationWxValue_12 = value.weatherElement[0]['time'][0]['parameter']['parameterValue'].toString();
+            let imgUrl_12 = nowLocationWxValue_12 + '.svg';
+            //24
+            let nowLocationMaxT_24 = value.weatherElement[4]['time'][1]['parameter']['parameterName'];
+            let nowLocationMinT_24 = value.weatherElement[2]['time'][1]['parameter']['parameterName'];
+            let nowLocationWxName_24 = value.weatherElement[0]['time'][1]['parameter']['parameterName'];
+            let nowLocationWxValue_24 = value.weatherElement[0]['time'][1]['parameter']['parameterValue'].toString();
+            let imgUrl_24 = nowLocationWxValue_24 + '.svg';
+            //36
+            let nowLocationMaxT_36 = value.weatherElement[4]['time'][2]['parameter']['parameterName'];
+            let nowLocationMinT_36 = value.weatherElement[2]['time'][2]['parameter']['parameterName'];
+            let nowLocationWxName_36 = value.weatherElement[0]['time'][2]['parameter']['parameterName'];
+            let nowLocationWxValue_36 = value.weatherElement[0]['time'][2]['parameter']['parameterValue'].toString();
+            let imgUrl_36 = nowLocationWxValue_36 + '.svg';
+            // console.log('nowLocationMaxT', nowLocationMaxT);
             console.log('nowLocation', nowLocation);
             let content = `
               <tr>
                 <td class="text-center">${stringID}</td>
                 <td class="text-start">${nowLocationName}</td>
-                <td class="text-start">${nowLocationMinT} - ${nowLocationMaxT} °C ${nowLocationWxName}<img src="./img/day/${imgUrl}"></td>
+                <td class="text-start">${nowLocationMinT_12} - ${nowLocationMaxT_12} °C ${nowLocationWxName_12}<img src="./img/day/${imgUrl_12}"></td>
+                <td class="text-start">${nowLocationMinT_24} - ${nowLocationMaxT_24} °C ${nowLocationWxName_24}<img src="./img/day/${imgUrl_24}"></td>
+                <td class="text-start">${nowLocationMinT_36} - ${nowLocationMaxT_36} °C ${nowLocationWxName_36}<img src="./img/day/${imgUrl_36}"></td>
               </tr>
             `;
 
