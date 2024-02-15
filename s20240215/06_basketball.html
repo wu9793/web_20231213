@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .box {
+            width: 50vw;
+            height: 50vh;
+            /* border: 3px solid #999; */
+            border-radius: 5px;
+            box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2 class="text-center fw-bold mt-3">
+            <i class="fa-solid fa-basketball"></i>&nbsp;投籃大賽&nbsp;<i class="fa-solid fa-basketball"></i>
+        </h2>
+        <hr class="border-3">
+    </div>
+    <div class="container text-center">
+        <div class="row">
+            <div class="col">
+                <div class="box mx-auto pt-3">
+                    <h3 class="fw-bold text-danger">
+                        歷史新高: <span id="highSpan"></span>
+                    </h3>
+                    <h4 class="fw-bold mt-3">
+                        倒數計時: <span id="timeSpan"></span>
+                    </h4>
+                    <hr class="w-75 mx-auto">
+                    <h4 class="fw-bold mt-3">
+                        <span id="scoreSpan">分數</span>
+                    </h4>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container text-center mt-5">
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn btn-outline-success mx-2" id="startBtn">開始</button>
+                <button type="button" class="btn btn-outline-success mx-2" id="shotBtn">投籃</button>
+                <button type="button" class="btn btn-outline-success mx-2" id="closeBtn">結束</button>
+                <button type="button" class="btn btn-outline-danger" id="resetBtn">重置</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $(document).ready(function () {
+            const scoreSpan = $('#scoreSpan');
+            const startBtn = $('#startBtn');
+            const shotBtn = $('#shotBtn');
+            const highSpan = $('#highSpan');
+            const resetBtn = $('#resetBtn');
+            const timeSpan = $('#timeSpan');
+            const closeBtn = $('#closeBtn');
+            let score = 0;
+            let nowTime = 10;
+            let highScore = localStorage.getItem("highScore");
+            highSpan.text(highScore);
+            shotBtn.hide();
+            closeBtn.hide();
+
+            startBtn.click(function (e) {
+                scoreSpan.text(score);
+                startBtn.hide();
+                shotBtn.show();
+                resetBtn.hide();
+
+                const myInterval = setInterval(() => {
+                    if (nowTime <= 0) {
+                        clearInterval(myInterval);
+                        shotBtn.hide();
+                        closeBtn.show();
+                        resetBtn.show();
+                        let getScore = score;
+                        if(highScore < getScore){
+                            localStorage.setItem("highScore",getScore);
+                        }
+
+                        timeSpan.text('0');
+                    }
+                    timeSpan.text(nowTime);
+                    nowTime -= 1;
+                }, 1000);
+            });
+
+            shotBtn.click(function (e) {
+                if(nowTime > 5){
+                    score += 2;
+                }else{
+                    score += 3;
+                }
+                scoreSpan.text(score);
+            })
+
+            resetBtn.click(function (e) {
+                score = 0;
+                nowTime = 0;
+                scoreSpan.text(score);
+                startBtn.show();
+                closeBtn.hide();
+                shotBtn.hide();
+            })
+        });
+    </script>
+</body>
